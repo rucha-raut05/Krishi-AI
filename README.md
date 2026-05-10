@@ -95,14 +95,11 @@ Krishi-ai full/
 └── uploads/                  # User-uploaded images
 ```
 
-📸 Screenshots
+## 📸 Screenshots
 
+<img width="1356" height="636" alt="Screenshot 2026-04-29 183909" src="https://github.com/user-attachments/assets/8dd0b705-df16-465b-a49e-780310af0cc5" />
 
-
-
-
-
-
+<img width="1343" height="675" alt="Screenshot 2026-04-29 183944 - Copy" src="https://github.com/user-attachments/assets/b64e881d-4c0a-4c9a-85d4-18fcee01dab3" />
 
 ## 👨‍💻 Team Members
 
@@ -115,7 +112,7 @@ Krishi-ai full/
 
 This project was developed as a Final Year Engineering Project for educational and research purposes.
 
-##📄 License
+## 📄 License
 
 This project is intended for educational use only.
 
