@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+<div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><i class="fas fa-seedling"></i> <span>Krishi AI</span></div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item active"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+            <a href="/crop" class="nav-item"><i class="fas fa-seedling"></i><span>Crop Advisor</span></a>
+            <a href="/fertilizer" class="nav-item"><i class="fas fa-flask"></i><span>Fertilizer</span></a>
+            <a href="/disease" class="nav-item"><i class="fas fa-microscope"></i><span>Disease Detect</span></a>
+            <a href="/weather" class="nav-item"><i class="fas fa-cloud-sun"></i><span>Weather</span></a>
+            <a href="/chatbot" class="nav-item"><i class="fas fa-robot"></i><span>AI Chatbot</span></a>
+            <a href="/history" class="nav-item"><i class="fas fa-history"></i><span>History</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" onclick="logout()" class="nav-item"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+        </div>
+    </aside>
+    <!-- Main -->
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h1 class="page-title">Dashboard</h1>
+            <div class="user-info"><i class="fas fa-user-circle"></i> <span id="user-name">Farmer</span></div>
+        </header>
+        <div class="content-area">
+            <!-- Welcome -->
+            <div class="welcome-card">
+                <div class="welcome-text">
+                    <h2>Welcome back! 🌾</h2>
+                    <p>Your AI-powered farming assistant is ready. Choose a tool below to get started.</p>
+                </div>
+                <div class="welcome-emoji">🚜</div>
+            </div>
+            <!-- Feature Cards Grid -->
+            <div class="dashboard-grid">
+                <a href="/crop" class="dash-card" style="--accent:#2ecc71">
+                    <div class="dash-card-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>Crop Recommendation</h3>
+                    <p>Find the best crop for your soil &amp; climate</p>
+                    <span class="dash-card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="/fertilizer" class="dash-card" style="--accent:#3498db">
+                    <div class="dash-card-icon"><i class="fas fa-flask"></i></div>
+                    <h3>Fertilizer Advice</h3>
+                    <p>Get smart fertilizer recommendations</p>
+                    <span class="dash-card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="/disease" class="dash-card" style="--accent:#e74c3c">
+                    <div class="dash-card-icon"><i class="fas fa-microscope"></i></div>
+                    <h3>Disease Detection</h3>
+                    <p>Upload plant photo to detect disease</p>
+                    <span class="dash-card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="/weather" class="dash-card" style="--accent:#f39c12">
+                    <div class="dash-card-icon"><i class="fas fa-cloud-sun"></i></div>
+                    <h3>Weather Forecast</h3>
+                    <p>Real-time weather with farming tips</p>
+                    <span class="dash-card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="/chatbot" class="dash-card" style="--accent:#9b59b6">
+                    <div class="dash-card-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI Chatbot</h3>
+                    <p>Ask any farming question instantly</p>
+                    <span class="dash-card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="/history" class="dash-card" style="--accent:#1abc9c">
+                    <div class="dash-card-icon"><i class="fas fa-history"></i></div>
+                    <h3>My History</h3>
+                    <p>View your past recommendations</p>
+                    <span class="dash-card-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+fetch('/api/profile').then(r=>r.json()).then(d=>{if(d.username)document.getElementById('user-name').textContent=d.username;}).catch(()=>{});
+</script>
+{% endblock %}

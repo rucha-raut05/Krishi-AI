@@ -1,0 +1,147 @@
+soil_type,crop,N,P,K,fertilizer
+Sandy,rice,30,50,40,DAP
+Sandy,rice,25,45,35,DAP
+Sandy,rice,35,55,45,DAP
+Sandy,rice,28,48,38,DAP
+Loamy,rice,40,60,50,Urea
+Loamy,rice,35,55,45,Urea
+Loamy,rice,45,65,55,Urea
+Loamy,rice,38,58,48,Urea
+Clay,rice,50,40,30,NPK 20-20-20
+Clay,rice,45,35,25,NPK 20-20-20
+Clay,rice,55,45,35,NPK 20-20-20
+Clay,rice,48,38,28,NPK 20-20-20
+Sandy,wheat,20,40,30,Urea
+Sandy,wheat,15,35,25,Urea
+Sandy,wheat,25,45,35,Urea
+Sandy,wheat,18,38,28,Urea
+Loamy,wheat,30,50,40,DAP
+Loamy,wheat,25,45,35,DAP
+Loamy,wheat,35,55,45,DAP
+Loamy,wheat,28,48,38,DAP
+Clay,wheat,40,60,50,NPK 10-26-26
+Clay,wheat,35,55,45,NPK 10-26-26
+Clay,wheat,45,65,55,NPK 10-26-26
+Clay,wheat,38,58,48,NPK 10-26-26
+Sandy,maize,40,30,20,Urea
+Sandy,maize,35,25,15,Urea
+Sandy,maize,45,35,25,Urea
+Sandy,maize,38,28,18,Urea
+Loamy,maize,50,40,30,NPK 20-20-20
+Loamy,maize,45,35,25,NPK 20-20-20
+Loamy,maize,55,45,35,NPK 20-20-20
+Loamy,maize,48,38,28,NPK 20-20-20
+Clay,maize,30,50,40,DAP
+Clay,maize,25,45,35,DAP
+Clay,maize,35,55,45,DAP
+Clay,maize,28,48,38,DAP
+Sandy,cotton,20,60,40,MOP
+Sandy,cotton,15,55,35,MOP
+Sandy,cotton,25,65,45,MOP
+Sandy,cotton,18,58,38,MOP
+Loamy,cotton,30,50,30,NPK 20-20-20
+Loamy,cotton,25,45,25,NPK 20-20-20
+Loamy,cotton,35,55,35,NPK 20-20-20
+Loamy,cotton,28,48,28,NPK 20-20-20
+Clay,cotton,40,40,20,DAP
+Clay,cotton,35,35,15,DAP
+Clay,cotton,45,45,25,DAP
+Clay,cotton,38,38,18,DAP
+Sandy,sugarcane,50,30,40,Urea
+Sandy,sugarcane,45,25,35,Urea
+Sandy,sugarcane,55,35,45,Urea
+Sandy,sugarcane,48,28,38,Urea
+Loamy,sugarcane,60,40,50,NPK 20-20-20
+Loamy,sugarcane,55,35,45,NPK 20-20-20
+Loamy,sugarcane,65,45,55,NPK 20-20-20
+Loamy,sugarcane,58,38,48,NPK 20-20-20
+Clay,sugarcane,40,50,30,DAP
+Clay,sugarcane,35,45,25,DAP
+Clay,sugarcane,45,55,35,DAP
+Clay,sugarcane,38,48,28,DAP
+Sandy,coffee,30,20,40,Urea
+Sandy,coffee,25,15,35,Urea
+Sandy,coffee,35,25,45,Urea
+Sandy,coffee,28,18,38,Urea
+Loamy,coffee,40,30,50,DAP
+Loamy,coffee,35,25,45,DAP
+Loamy,coffee,45,35,55,DAP
+Loamy,coffee,38,28,48,DAP
+Red,coffee,50,40,30,MOP
+Red,coffee,45,35,25,MOP
+Red,coffee,55,45,35,MOP
+Red,coffee,48,38,28,MOP
+Sandy,coconut,20,60,30,MOP
+Sandy,coconut,15,55,25,MOP
+Sandy,coconut,25,65,35,MOP
+Sandy,coconut,18,58,28,MOP
+Loamy,coconut,30,50,40,NPK 20-20-20
+Loamy,coconut,25,45,35,NPK 20-20-20
+Loamy,coconut,35,55,45,NPK 20-20-20
+Loamy,coconut,28,48,38,NPK 20-20-20
+Sandy,banana,10,30,20,Urea
+Sandy,banana,8,28,18,Urea
+Sandy,banana,12,32,22,Urea
+Red,banana,15,35,25,DAP
+Red,banana,12,32,22,DAP
+Red,banana,18,38,28,DAP
+Loamy,banana,20,40,30,NPK 20-20-20
+Loamy,banana,18,38,28,NPK 20-20-20
+Loamy,banana,22,42,32,NPK 20-20-20
+Sandy,mango,30,20,30,NPK 20-20-20
+Sandy,mango,25,15,25,NPK 20-20-20
+Sandy,mango,35,25,35,NPK 20-20-20
+Loamy,mango,40,30,40,MOP
+Loamy,mango,35,25,35,MOP
+Loamy,mango,45,35,45,MOP
+Black,chickpea,20,30,40,DAP
+Black,chickpea,15,25,35,DAP
+Black,chickpea,25,35,45,DAP
+Loamy,chickpea,30,40,50,NPK 20-20-20
+Loamy,chickpea,25,35,45,NPK 20-20-20
+Loamy,chickpea,35,45,55,NPK 20-20-20
+Sandy,lentil,10,50,20,DAP
+Sandy,lentil,8,48,18,DAP
+Sandy,lentil,12,52,22,DAP
+Loamy,lentil,20,40,30,NPK 10-26-26
+Loamy,lentil,18,38,28,NPK 10-26-26
+Loamy,lentil,22,42,32,NPK 10-26-26
+Sandy,orange,30,40,50,NPK 10-26-26
+Sandy,orange,25,35,45,NPK 10-26-26
+Sandy,orange,35,45,55,NPK 10-26-26
+Loamy,orange,20,30,40,MOP
+Loamy,orange,18,28,38,MOP
+Loamy,orange,22,32,42,MOP
+Red,pomegranate,10,60,30,MOP
+Red,pomegranate,8,58,28,MOP
+Red,pomegranate,12,62,32,MOP
+Loamy,pomegranate,20,50,40,DAP
+Loamy,pomegranate,18,48,38,DAP
+Loamy,pomegranate,22,52,42,DAP
+Clay,watermelon,20,30,10,Urea
+Clay,watermelon,18,28,8,Urea
+Clay,watermelon,22,32,12,Urea
+Loamy,watermelon,30,40,20,NPK 20-20-20
+Loamy,watermelon,28,38,18,NPK 20-20-20
+Loamy,watermelon,32,42,22,NPK 20-20-20
+Sandy,muskmelon,20,30,30,DAP
+Sandy,muskmelon,18,28,28,DAP
+Sandy,muskmelon,22,32,32,DAP
+Loamy,muskmelon,30,40,40,NPK 20-20-20
+Loamy,muskmelon,28,38,38,NPK 20-20-20
+Loamy,muskmelon,32,42,42,NPK 20-20-20
+Sandy,jute,20,40,50,NPK 10-26-26
+Sandy,jute,18,38,48,NPK 10-26-26
+Sandy,jute,22,42,52,NPK 10-26-26
+Loamy,jute,30,50,40,DAP
+Loamy,jute,28,48,38,DAP
+Loamy,jute,32,52,42,DAP
+Clay,jute,40,30,30,Urea
+Clay,jute,38,28,28,Urea
+Clay,jute,42,32,32,Urea
+Sandy,papaya,10,40,20,Urea
+Sandy,papaya,8,38,18,Urea
+Sandy,papaya,12,42,22,Urea
+Loamy,papaya,20,50,30,DAP
+Loamy,papaya,18,48,28,DAP
+Loamy,papaya,22,52,32,DAP

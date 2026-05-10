@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Fertilizer Recommendation{% endblock %}
+{% block body %}
+<div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><i class="fas fa-seedling"></i> <span>Krishi AI</span></div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+            <a href="/crop" class="nav-item"><i class="fas fa-seedling"></i><span>Crop Advisor</span></a>
+            <a href="/fertilizer" class="nav-item active"><i class="fas fa-flask"></i><span>Fertilizer</span></a>
+            <a href="/disease" class="nav-item"><i class="fas fa-microscope"></i><span>Disease Detect</span></a>
+            <a href="/weather" class="nav-item"><i class="fas fa-cloud-sun"></i><span>Weather</span></a>
+            <a href="/chatbot" class="nav-item"><i class="fas fa-robot"></i><span>AI Chatbot</span></a>
+            <a href="/history" class="nav-item"><i class="fas fa-history"></i><span>History</span></a>
+        </nav>
+        <div class="sidebar-footer"><a href="#" onclick="logout()" class="nav-item"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></div>
+    </aside>
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h1 class="page-title"><i class="fas fa-flask"></i> Fertilizer Recommendation</h1>
+            <div class="user-info"><i class="fas fa-user-circle"></i></div>
+        </header>
+        <div class="content-area">
+            <div class="form-card">
+                <h2><i class="fas fa-vial"></i> Enter Soil & Crop Details</h2>
+                <p class="form-subtitle">We'll recommend the best fertilizer based on your soil nutrients.</p>
+                <form id="fert-form" onsubmit="return submitFert(event)">
+                    <div class="form-row">
+                        <div class="form-group"><label>Soil Type</label>
+                            <select id="soil_type" required><option value="">Select soil</option>
+                            <option>Sandy</option><option>Loamy</option><option>Clay</option><option>Red</option><option>Black</option></select>
+                        </div>
+                        <div class="form-group"><label>Crop</label>
+                            <select id="crop" required><option value="">Select crop</option>
+                            <option>rice</option><option>wheat</option><option>maize</option><option>cotton</option><option>sugarcane</option>
+                            <option>jute</option><option>coffee</option><option>coconut</option><option>papaya</option><option>orange</option>
+                            <option>chickpea</option><option>banana</option><option>mango</option><option>lentil</option><option>watermelon</option><option>muskmelon</option><option>pomegranate</option></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Nitrogen (N)</label><input type="number" id="N" required placeholder="e.g. 30"></div>
+                        <div class="form-group"><label>Phosphorus (P)</label><input type="number" id="P" required placeholder="e.g. 40"></div>
+                        <div class="form-group"><label>Potassium (K)</label><input type="number" id="K" required placeholder="e.g. 35"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="fert-btn"><i class="fas fa-search"></i> Get Recommendation</button>
+                </form>
+            </div>
+            <div id="fert-result" class="result-card" style="display:none">
+                <h2><i class="fas fa-check-circle"></i> Recommended Fertilizer</h2>
+                <div id="fert-result-content"></div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+async function submitFert(e){
+    e.preventDefault();
+    const btn=document.getElementById('fert-btn');
+    btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Analyzing...';btn.disabled=true;
+    const body={soil_type:document.getElementById('soil_type').value,crop:document.getElementById('crop').value,
+        N:document.getElementById('N').value,P:document.getElementById('P').value,K:document.getElementById('K').value};
+    try{
+        const res=await fetch('/api/fertilizer/recommend',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+        const data=await res.json();
+        if(res.ok){
+            let html=`<div class="result-crop"><span class="crop-emoji">🧪</span><h3>${data.fertilizer}</h3></div>`;
+            if(data.tips&&data.tips.length){html+='<div class="tips-list"><h4>💡 Tips:</h4><ul>';data.tips.forEach(t=>{html+=`<li>${t}</li>`;});html+='</ul></div>';}
+            document.getElementById('fert-result-content').innerHTML=html;
+            document.getElementById('fert-result').style.display='block';
+            document.getElementById('fert-result').scrollIntoView({behavior:'smooth'});
+        }else{showToast(data.error||'Error','error');}
+    }catch(e){showToast('Network error','error');}
+    btn.innerHTML='<i class="fas fa-search"></i> Get Recommendation';btn.disabled=false;
+}
+</script>
+{% endblock %}

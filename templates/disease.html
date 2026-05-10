@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Disease Detection{% endblock %}
+{% block body %}
+<div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><i class="fas fa-seedling"></i> <span>Krishi AI</span></div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+            <a href="/crop" class="nav-item"><i class="fas fa-seedling"></i><span>Crop Advisor</span></a>
+            <a href="/fertilizer" class="nav-item"><i class="fas fa-flask"></i><span>Fertilizer</span></a>
+            <a href="/disease" class="nav-item active"><i class="fas fa-microscope"></i><span>Disease Detect</span></a>
+            <a href="/weather" class="nav-item"><i class="fas fa-cloud-sun"></i><span>Weather</span></a>
+            <a href="/chatbot" class="nav-item"><i class="fas fa-robot"></i><span>AI Chatbot</span></a>
+            <a href="/history" class="nav-item"><i class="fas fa-history"></i><span>History</span></a>
+        </nav>
+        <div class="sidebar-footer"><a href="#" onclick="logout()" class="nav-item"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></div>
+    </aside>
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h1 class="page-title"><i class="fas fa-microscope"></i> Disease Detection</h1>
+            <div class="user-info"><i class="fas fa-user-circle"></i></div>
+        </header>
+        <div class="content-area">
+            <div class="form-card">
+                <h2><i class="fas fa-camera"></i> Upload Plant Image</h2>
+                <p class="form-subtitle">Take a photo of the affected plant leaf and upload it for AI analysis.</p>
+                <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()"
+                     ondragover="event.preventDefault();this.classList.add('drag-over')"
+                     ondragleave="this.classList.remove('drag-over')"
+                     ondrop="handleDrop(event)">
+                    <div id="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p>Drag & drop an image here, or <strong>click to browse</strong></p>
+                        <p class="upload-hint">Supports: PNG, JPG, JPEG (max 16MB)</p>
+                    </div>
+                    <img id="preview-img" style="display:none;max-width:100%;max-height:300px;border-radius:12px;">
+                </div>
+                <input type="file" id="file-input" accept="image/*" style="display:none" onchange="previewFile(this)">
+                <div class="form-row" style="margin-top:1rem;justify-content:center;gap:1rem;">
+                    <button class="btn btn-primary" id="detect-btn" onclick="detectDisease()" disabled><i class="fas fa-search"></i> Detect Disease</button>
+                    <button class="btn btn-outline" onclick="captureCamera()"><i class="fas fa-camera"></i> Use Camera</button>
+                </div>
+            </div>
+            <div id="disease-result" class="result-card" style="display:none">
+                <h2><i class="fas fa-stethoscope"></i> Analysis Result</h2>
+                <div id="disease-result-content"></div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+let selectedFile=null;
+function previewFile(input){
+    if(input.files&&input.files[0]){selectedFile=input.files[0];const r=new FileReader();
+    r.onload=e=>{document.getElementById('preview-img').src=e.target.result;document.getElementById('preview-img').style.display='block';
+    document.getElementById('upload-content').style.display='none';document.getElementById('detect-btn').disabled=false;};r.readAsDataURL(input.files[0]);}
+}
+function handleDrop(e){e.preventDefault();e.currentTarget.classList.remove('drag-over');
+    if(e.dataTransfer.files.length){document.getElementById('file-input').files=e.dataTransfer.files;previewFile(document.getElementById('file-input'));}}
+async function captureCamera(){try{const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+    const v=document.createElement('video');v.srcObject=stream;v.play();
+    setTimeout(()=>{const c=document.createElement('canvas');c.width=640;c.height=480;c.getContext('2d').drawImage(v,0,0);
+    stream.getTracks().forEach(t=>t.stop());c.toBlob(b=>{selectedFile=new File([b],'camera.jpg',{type:'image/jpeg'});
+    document.getElementById('preview-img').src=URL.createObjectURL(b);document.getElementById('preview-img').style.display='block';
+    document.getElementById('upload-content').style.display='none';document.getElementById('detect-btn').disabled=false;},'image/jpeg');},1000);
+    }catch(e){showToast('Camera not available','error');}}
+async function detectDisease(){
+    if(!selectedFile){showToast('Please select an image','error');return;}
+    const btn=document.getElementById('detect-btn');btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Analyzing...';btn.disabled=true;
+    const fd=new FormData();fd.append('image',selectedFile);
+    try{const res=await fetch('/api/disease/detect',{method:'POST',body:fd});const data=await res.json();
+        if(res.ok){
+            const isHealthy=data.disease.toLowerCase().includes('healthy');
+            const color=isHealthy?'#2ecc71':'#e74c3c';
+            let html=`<div class="disease-result-header" style="border-left:4px solid ${color};padding-left:1rem;">
+                <h3 style="color:${color}">${data.disease}</h3><p>Confidence: <strong>${data.confidence}%</strong></p></div>
+                <div class="disease-info"><h4>📋 Description</h4><p>${data.description}</p><h4>💊 Treatment</h4><p>${data.treatment}</p></div>`;
+            document.getElementById('disease-result-content').innerHTML=html;
+            document.getElementById('disease-result').style.display='block';
+            document.getElementById('disease-result').scrollIntoView({behavior:'smooth'});
+        }else{showToast(data.error||'Error','error');}
+    }catch(e){showToast('Network error','error');}
+    btn.innerHTML='<i class="fas fa-search"></i> Detect Disease';btn.disabled=false;
+}
+</script>
+{% endblock %}

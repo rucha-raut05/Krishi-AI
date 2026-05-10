@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Weather{% endblock %}
+{% block body %}
+<div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><i class="fas fa-seedling"></i> <span>Krishi AI</span></div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+            <a href="/crop" class="nav-item"><i class="fas fa-seedling"></i><span>Crop Advisor</span></a>
+            <a href="/fertilizer" class="nav-item"><i class="fas fa-flask"></i><span>Fertilizer</span></a>
+            <a href="/disease" class="nav-item"><i class="fas fa-microscope"></i><span>Disease Detect</span></a>
+            <a href="/weather" class="nav-item active"><i class="fas fa-cloud-sun"></i><span>Weather</span></a>
+            <a href="/chatbot" class="nav-item"><i class="fas fa-robot"></i><span>AI Chatbot</span></a>
+            <a href="/history" class="nav-item"><i class="fas fa-history"></i><span>History</span></a>
+        </nav>
+        <div class="sidebar-footer"><a href="#" onclick="logout()" class="nav-item"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></div>
+    </aside>
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h1 class="page-title"><i class="fas fa-cloud-sun"></i> Weather Forecast</h1>
+            <div class="user-info"><i class="fas fa-user-circle"></i></div>
+        </header>
+        <div class="content-area">
+            <div class="form-card" style="max-width:500px">
+                <div class="form-row">
+                    <div class="form-group" style="flex:1"><input type="text" id="city-input" placeholder="Enter city name..." value="Delhi"></div>
+                    <button class="btn btn-primary" onclick="fetchWeather()"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+            <div id="weather-content" style="display:none">
+                <div class="weather-current" id="weather-current"></div>
+                <div class="weather-forecast" id="weather-forecast"></div>
+                <div class="weather-tips" id="weather-tips"></div>
+            </div>
+            <div id="weather-loading" style="display:none;text-align:center;padding:2rem"><i class="fas fa-spinner fa-spin fa-2x"></i><p>Fetching weather...</p></div>
+        </div>
+    </main>
+</div>
+<script>
+document.getElementById('city-input').addEventListener('keydown',e=>{if(e.key==='Enter')fetchWeather();});
+async function fetchWeather(){
+    const city=document.getElementById('city-input').value.trim();if(!city)return;
+    document.getElementById('weather-loading').style.display='block';document.getElementById('weather-content').style.display='none';
+    try{const res=await fetch(`/api/weather?city=${encodeURIComponent(city)}`);const d=await res.json();
+        const c=d.current;const iconUrl=`https://openweathermap.org/img/wn/${c.icon}@4x.png`;
+        document.getElementById('weather-current').innerHTML=`
+            <div class="weather-main-card">
+                <div class="weather-left"><img src="${iconUrl}" alt="${c.description}" class="weather-icon-lg">
+                    <div><h2>${c.city}, ${c.country}</h2><p class="weather-desc">${c.description}</p></div></div>
+                <div class="weather-right"><div class="weather-temp">${Math.round(c.temp)}°C</div>
+                    <div class="weather-details"><div><i class="fas fa-temperature-high"></i> Feels ${Math.round(c.feels_like)}°C</div>
+                    <div><i class="fas fa-tint"></i> Humidity ${c.humidity}%</div><div><i class="fas fa-wind"></i> Wind ${c.wind_speed} m/s</div>
+                    <div><i class="fas fa-gauge-high"></i> ${c.pressure} hPa</div></div></div>
+            </div>`;
+        let fc='<h3>📅 5-Day Forecast</h3><div class="forecast-grid">';
+        d.forecast.forEach(f=>{const fi=`https://openweathermap.org/img/wn/${f.icon}@2x.png`;
+            const dd=new Date(f.date).toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'});
+            fc+=`<div class="forecast-card"><p class="fc-date">${dd}</p><img src="${fi}" alt="${f.description}"><p class="fc-temp">${Math.round(f.temp)}°C</p><p class="fc-desc">${f.description}</p><p class="fc-hum"><i class="fas fa-tint"></i> ${f.humidity}%</p></div>`;});
+        fc+='</div>';document.getElementById('weather-forecast').innerHTML=fc;
+        let tips='<h3>🌾 Farming Tips</h3><div class="tips-list"><ul>';
+        d.tips.forEach(t=>{tips+=`<li>${t}</li>`;});tips+='</ul></div>';
+        document.getElementById('weather-tips').innerHTML=tips;
+        document.getElementById('weather-content').style.display='block';
+    }catch(e){showToast('Failed to fetch weather','error');}
+    document.getElementById('weather-loading').style.display='none';
+}
+fetchWeather();
+</script>
+{% endblock %}

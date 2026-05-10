@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% block body %}
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-brand"><i class="fas fa-seedling"></i> Krishi AI</div>
+            <h2>Join Krishi AI</h2>
+            <p>Create an account to start your smart farming journey!</p>
+            <div class="auth-illustration">🌻🌍💡</div>
+        </div>
+        <div class="auth-right">
+            <h2>Sign Up</h2>
+            <div id="signup-error" class="alert alert-danger" style="display:none"></div>
+            <div id="signup-success" class="alert alert-success" style="display:none"></div>
+            <form id="signup-form" onsubmit="return handleSignup(event)">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Choose a username" minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Create password" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password"><i class="fas fa-lock"></i> Confirm Password</label>
+                    <input type="password" id="confirm-password" required placeholder="Confirm password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="signup-btn">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="/login">Login</a></p>
+        </div>
+    </div>
+</div>
+<script>
+async function handleSignup(e){
+    e.preventDefault();
+    const btn=document.getElementById('signup-btn');
+    const err=document.getElementById('signup-error');
+    const suc=document.getElementById('signup-success');
+    const pw=document.getElementById('password').value;
+    const cpw=document.getElementById('confirm-password').value;
+    err.style.display='none';suc.style.display='none';
+    if(pw!==cpw){err.textContent='Passwords do not match';err.style.display='block';return false;}
+    btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Creating...';btn.disabled=true;
+    try{
+        const res=await fetch('/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({username:document.getElementById('username').value,email:document.getElementById('email').value,password:pw})});
+        const data=await res.json();
+        if(res.ok){suc.textContent='Account created! Redirecting...';suc.style.display='block';setTimeout(()=>window.location.href='/dashboard',1000);}
+        else{err.textContent=data.error||'Signup failed';err.style.display='block';}
+    }catch(e){err.textContent='Network error';err.style.display='block';}
+    btn.innerHTML='<i class="fas fa-user-plus"></i> Create Account';btn.disabled=false;
+}
+</script>
+{% endblock %}

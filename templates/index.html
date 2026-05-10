@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Welcome{% endblock %}
+{% block body %}
+<div class="landing-page">
+    <!-- Nav -->
+    <nav class="landing-nav">
+        <div class="nav-brand"><i class="fas fa-seedling"></i> Krishi AI</div>
+        <div class="nav-links">
+            <a href="/login" class="btn btn-outline-light">Login</a>
+            <a href="/signup" class="btn btn-primary">Get Started</a>
+        </div>
+    </nav>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Smart Farming with <span class="gradient-text">Artificial Intelligence</span></h1>
+            <p class="hero-subtitle">Empowering farmers with AI-powered crop recommendations, disease detection, weather insights, and expert advice — all in one platform.</p>
+            <div class="hero-buttons">
+                <a href="/signup" class="btn btn-primary btn-lg"><i class="fas fa-rocket"></i> Start Free</a>
+                <a href="#features" class="btn btn-outline-light btn-lg"><i class="fas fa-arrow-down"></i> Explore</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-num">22+</span><span class="stat-label">Crops</span></div>
+                <div class="stat"><span class="stat-num">18+</span><span class="stat-label">Diseases</span></div>
+                <div class="stat"><span class="stat-num">6</span><span class="stat-label">Fertilizers</span></div>
+                <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">AI Support</span></div>
+            </div>
+        </div>
+    </section>
+    <!-- Features -->
+    <section class="features-section" id="features">
+        <h2 class="section-title">Powerful Features for Modern Farming</h2>
+        <div class="features-grid">
+            <div class="feature-card" style="--delay:0.1s">
+                <div class="feature-icon" style="background:linear-gradient(135deg,#2ecc71,#27ae60)"><i class="fas fa-seedling"></i></div>
+                <h3>Crop Recommendation</h3>
+                <p>Get AI-powered suggestions for the best crops based on your soil type, climate, and nutrients.</p>
+            </div>
+            <div class="feature-card" style="--delay:0.2s">
+                <div class="feature-icon" style="background:linear-gradient(135deg,#3498db,#2980b9)"><i class="fas fa-flask"></i></div>
+                <h3>Fertilizer Advice</h3>
+                <p>Smart fertilizer recommendations based on your soil's N, P, K levels and crop type.</p>
+            </div>
+            <div class="feature-card" style="--delay:0.3s">
+                <div class="feature-icon" style="background:linear-gradient(135deg,#e74c3c,#c0392b)"><i class="fas fa-microscope"></i></div>
+                <h3>Disease Detection</h3>
+                <p>Upload a plant photo and our AI instantly identifies diseases with treatment plans.</p>
+            </div>
+            <div class="feature-card" style="--delay:0.4s">
+                <div class="feature-icon" style="background:linear-gradient(135deg,#f39c12,#e67e22)"><i class="fas fa-cloud-sun"></i></div>
+                <h3>Weather Insights</h3>
+                <p>Real-time weather data with farming-specific tips and 5-day forecasts.</p>
+            </div>
+            <div class="feature-card" style="--delay:0.5s">
+                <div class="feature-icon" style="background:linear-gradient(135deg,#9b59b6,#8e44ad)"><i class="fas fa-robot"></i></div>
+                <h3>AI Chatbot</h3>
+                <p>Ask farming questions anytime — our AI chatbot has answers with voice support.</p>
+            </div>
+            <div class="feature-card" style="--delay:0.6s">
+                <div class="feature-icon" style="background:linear-gradient(135deg,#1abc9c,#16a085)"><i class="fas fa-history"></i></div>
+                <h3>History Tracking</h3>
+                <p>All your past queries and recommendations saved and easily accessible.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <p>&copy; 2026 Krishi AI. Built with ❤️ for Indian Farmers.</p>
+    </footer>
+</div>
+<script>
+// Floating particles animation
+(function(){const c=document.getElementById('particles');if(!c)return;for(let i=0;i<30;i++){const p=document.createElement('div');p.className='particle';p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${4+Math.random()*8}px;height:${4+Math.random()*8}px;animation-delay:${Math.random()*6}s;animation-duration:${6+Math.random()*10}s;`;c.appendChild(p);}})();
+</script>
+{% endblock %}

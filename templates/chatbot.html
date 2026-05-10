@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}AI Chatbot{% endblock %}
+{% block body %}
+<div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><i class="fas fa-seedling"></i> <span>Krishi AI</span></div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+            <a href="/crop" class="nav-item"><i class="fas fa-seedling"></i><span>Crop Advisor</span></a>
+            <a href="/fertilizer" class="nav-item"><i class="fas fa-flask"></i><span>Fertilizer</span></a>
+            <a href="/disease" class="nav-item"><i class="fas fa-microscope"></i><span>Disease Detect</span></a>
+            <a href="/weather" class="nav-item"><i class="fas fa-cloud-sun"></i><span>Weather</span></a>
+            <a href="/chatbot" class="nav-item active"><i class="fas fa-robot"></i><span>AI Chatbot</span></a>
+            <a href="/history" class="nav-item"><i class="fas fa-history"></i><span>History</span></a>
+        </nav>
+        <div class="sidebar-footer"><a href="#" onclick="logout()" class="nav-item"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></div>
+    </aside>
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h1 class="page-title"><i class="fas fa-robot"></i> AI Chatbot</h1>
+            <div class="user-info"><i class="fas fa-user-circle"></i></div>
+        </header>
+        <div class="content-area" style="display:flex;flex-direction:column;height:calc(100vh - 80px);">
+            <div class="chat-container" id="chat-container">
+                <div class="chat-message bot"><div class="msg-avatar"><i class="fas fa-robot"></i></div>
+                <div class="msg-bubble">Hello! 🌾 I'm Krishi AI, your farming assistant. Ask me about crops, soil, pests, weather, or anything farming-related!</div></div>
+            </div>
+            <div class="quick-replies">
+                <button onclick="sendQuick('What crops should I grow?')">🌱 Crops</button>
+                <button onclick="sendQuick('Tell me about fertilizers')">🧪 Fertilizers</button>
+                <button onclick="sendQuick('How to control pests?')">🐛 Pests</button>
+                <button onclick="sendQuick('Irrigation tips')">💧 Irrigation</button>
+                <button onclick="sendQuick('Organic farming tips')">🌿 Organic</button>
+                <button onclick="sendQuick('What is the best season?')">📅 Seasons</button>
+            </div>
+            <div class="chat-input-area">
+                <button class="btn-icon" onclick="toggleVoice()" id="voice-btn" title="Voice input"><i class="fas fa-microphone"></i></button>
+                <input type="text" id="chat-input" placeholder="Type your farming question..." onkeydown="if(event.key==='Enter')sendMessage()">
+                <button class="btn btn-primary" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                <button class="btn-icon" onclick="speakLast()" title="Read aloud"><i class="fas fa-volume-up"></i></button>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+let lastBotMsg='';
+function addMsg(text,type){
+    const c=document.getElementById('chat-container');
+    const div=document.createElement('div');div.className=`chat-message ${type}`;
+    const icon=type==='bot'?'fa-robot':'fa-user';
+    div.innerHTML=`<div class="msg-avatar"><i class="fas ${icon}"></i></div><div class="msg-bubble">${text}</div>`;
+    c.appendChild(div);c.scrollTop=c.scrollHeight;
+    if(type==='bot')lastBotMsg=text;
+}
+function addTyping(){
+    const c=document.getElementById('chat-container');
+    const div=document.createElement('div');div.className='chat-message bot typing-msg';div.id='typing';
+    div.innerHTML='<div class="msg-avatar"><i class="fas fa-robot"></i></div><div class="msg-bubble"><span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></div>';
+    c.appendChild(div);c.scrollTop=c.scrollHeight;
+}
+function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+async function sendMessage(){
+    const input=document.getElementById('chat-input');const msg=input.value.trim();if(!msg)return;
+    addMsg(msg,'user');input.value='';addTyping();
+    try{const res=await fetch('/api/chatbot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg})});
+        const data=await res.json();removeTyping();addMsg(data.response,'bot');
+    }catch(e){removeTyping();addMsg('Sorry, something went wrong. Please try again.','bot');}
+}
+function sendQuick(msg){document.getElementById('chat-input').value=msg;sendMessage();}
+// Voice Support (Web Speech API)
+let recognition=null;let isListening=false;
+function toggleVoice(){
+    if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){showToast('Voice not supported in this browser','error');return;}
+    if(isListening){recognition.stop();return;}
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;recognition=new SR();
+    recognition.lang='en-IN';recognition.continuous=false;recognition.interimResults=false;
+    recognition.onstart=()=>{isListening=true;document.getElementById('voice-btn').classList.add('recording');};
+    recognition.onend=()=>{isListening=false;document.getElementById('voice-btn').classList.remove('recording');};
+    recognition.onresult=(e)=>{document.getElementById('chat-input').value=e.results[0][0].transcript;sendMessage();};
+    recognition.onerror=()=>{isListening=false;document.getElementById('voice-btn').classList.remove('recording');};
+    recognition.start();
+}
+function speakLast(){
+    if(!lastBotMsg||!('speechSynthesis' in window))return;
+    const u=new SpeechSynthesisUtterance(lastBotMsg.replace(/<[^>]*>/g,''));u.lang='en-IN';u.rate=0.9;speechSynthesis.speak(u);
+}
+</script>
+{% endblock %}

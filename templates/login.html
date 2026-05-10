@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-brand"><i class="fas fa-seedling"></i> Krishi AI</div>
+            <h2>Welcome Back, Farmer!</h2>
+            <p>Login to access your smart farming dashboard.</p>
+            <div class="auth-illustration">🌾🚜🌱</div>
+        </div>
+        <div class="auth-right">
+            <h2>Login</h2>
+            <div id="login-error" class="alert alert-danger" style="display:none"></div>
+            <form id="login-form" onsubmit="return handleLogin(event)">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter username" autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter password" autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="/signup">Sign Up</a></p>
+        </div>
+    </div>
+</div>
+<script>
+async function handleLogin(e){
+    e.preventDefault();
+    const btn=document.getElementById('login-btn');
+    const err=document.getElementById('login-error');
+    btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Logging in...';btn.disabled=true;err.style.display='none';
+    try{
+        const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({username:document.getElementById('username').value,password:document.getElementById('password').value})});
+        const data=await res.json();
+        if(res.ok){window.location.href='/dashboard';}
+        else{err.textContent=data.error||'Login failed';err.style.display='block';}
+    }catch(e){err.textContent='Network error';err.style.display='block';}
+    btn.innerHTML='<i class="fas fa-sign-in-alt"></i> Login';btn.disabled=false;
+}
+</script>
+{% endblock %}

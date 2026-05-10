@@ -1,0 +1,92 @@
+{
+    "Apple___Apple_scab": {
+        "disease": "Apple Scab",
+        "description": "Apple scab is caused by the fungus Venturia inaequalis. It causes dark, scaly lesions on leaves, fruit, and twigs.",
+        "treatment": "Apply fungicides such as captan or myclobutanil during spring. Remove fallen leaves and infected fruit. Prune trees to improve air circulation."
+    },
+    "Apple___Black_rot": {
+        "disease": "Apple Black Rot",
+        "description": "Black rot is caused by the fungus Botryosphaeria obtusa. It causes brown spots on leaves, rotting fruit, and cankers on branches.",
+        "treatment": "Prune dead or diseased branches. Remove mummified fruit. Apply fungicides like captan or thiophanate-methyl."
+    },
+    "Apple___Cedar_apple_rust": {
+        "disease": "Cedar Apple Rust",
+        "description": "Caused by Gymnosporangium juniperi-virginianae. Shows yellow-orange spots on leaves and fruit.",
+        "treatment": "Remove nearby cedar trees if possible. Apply fungicides in spring. Use resistant apple varieties."
+    },
+    "Apple___healthy": {
+        "disease": "Healthy",
+        "description": "The plant appears to be healthy with no visible signs of disease.",
+        "treatment": "Continue regular care: proper watering, fertilization, and pest monitoring."
+    },
+    "Corn___Cercospora_leaf_spot": {
+        "disease": "Cercospora Leaf Spot (Gray Leaf Spot)",
+        "description": "Caused by the fungus Cercospora zeae-maydis. Creates rectangular gray-brown lesions on leaves.",
+        "treatment": "Use resistant hybrids. Rotate crops. Apply foliar fungicides like strobilurins or triazoles."
+    },
+    "Corn___Common_rust": {
+        "disease": "Common Rust",
+        "description": "Caused by the fungus Puccinia sorghi. Shows small, circular to elongated brown pustules on leaves.",
+        "treatment": "Plant resistant varieties. Apply fungicides if infection is severe. Ensure proper spacing."
+    },
+    "Corn___healthy": {
+        "disease": "Healthy",
+        "description": "The corn plant appears healthy with no visible disease symptoms.",
+        "treatment": "Maintain regular watering and fertilization schedule. Monitor for pests."
+    },
+    "Grape___Black_rot": {
+        "disease": "Grape Black Rot",
+        "description": "Caused by Guignardia bidwellii. Shows brown circular lesions on leaves and shriveled, black mummified fruit.",
+        "treatment": "Remove mummified berries and infected plant parts. Apply fungicides before bloom. Improve air circulation."
+    },
+    "Grape___Esca": {
+        "disease": "Grape Esca (Black Measles)",
+        "description": "A complex disease caused by multiple fungi. Shows interveinal striping and necrosis on leaves.",
+        "treatment": "Prune and destroy infected wood. Protect pruning wounds. No chemical treatment is fully effective."
+    },
+    "Grape___healthy": {
+        "disease": "Healthy",
+        "description": "The grape vine appears healthy with no signs of disease.",
+        "treatment": "Continue proper vineyard management: pruning, irrigation, and monitoring."
+    },
+    "Potato___Early_blight": {
+        "disease": "Potato Early Blight",
+        "description": "Caused by Alternaria solani. Shows dark brown spots with concentric rings on lower leaves.",
+        "treatment": "Apply fungicides like chlorothalonil or mancozeb. Rotate crops. Remove infected plant debris."
+    },
+    "Potato___Late_blight": {
+        "disease": "Potato Late Blight",
+        "description": "Caused by Phytophthora infestans. Shows water-soaked spots on leaves that turn brown/black. Can destroy entire crop.",
+        "treatment": "Apply fungicides immediately. Remove and destroy infected plants. Avoid overhead irrigation."
+    },
+    "Potato___healthy": {
+        "disease": "Healthy",
+        "description": "The potato plant appears healthy with no visible disease symptoms.",
+        "treatment": "Maintain proper watering and hilling. Monitor for pest activity."
+    },
+    "Tomato___Bacterial_spot": {
+        "disease": "Tomato Bacterial Spot",
+        "description": "Caused by Xanthomonas bacteria. Shows small, dark, water-soaked spots on leaves, stems, and fruit.",
+        "treatment": "Use disease-free seeds. Apply copper-based bactericides. Avoid overhead watering. Rotate crops."
+    },
+    "Tomato___Early_blight": {
+        "disease": "Tomato Early Blight",
+        "description": "Caused by Alternaria solani. Shows dark spots with concentric rings (target-like) on lower leaves.",
+        "treatment": "Apply fungicides. Remove lower infected leaves. Mulch around plants. Practice crop rotation."
+    },
+    "Tomato___Late_blight": {
+        "disease": "Tomato Late Blight",
+        "description": "Caused by Phytophthora infestans. Shows large, water-soaked brown spots on leaves with white mold underneath.",
+        "treatment": "Remove infected plants immediately. Apply fungicides. Avoid overhead watering. Use resistant varieties."
+    },
+    "Tomato___Leaf_Mold": {
+        "disease": "Tomato Leaf Mold",
+        "description": "Caused by Passalora fulva. Shows yellow spots on upper leaf surface and olive-green mold on lower surface.",
+        "treatment": "Improve ventilation. Reduce humidity. Apply fungicides. Remove infected leaves."
+    },
+    "Tomato___healthy": {
+        "disease": "Healthy",
+        "description": "The tomato plant appears healthy with no visible disease symptoms.",
+        "treatment": "Continue regular watering, staking, and monitoring. Ensure adequate sunlight."
+    }
+}
