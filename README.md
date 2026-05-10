@@ -95,9 +95,27 @@ Krishi-ai full/
 └── uploads/                  # User-uploaded images
 ```
 
-## 📝 Notes
+📸 Screenshots
 
-- The disease detection model included is a demo/mock model. For production use, train on the full [PlantVillage dataset](https://www.kaggle.com/emmarex/plantdisease).
-- The chatbot uses rule-based NLP. For more advanced responses, integrate with an LLM API.
-- Always use a strong `SECRET_KEY` in production.
+
+
+
+
+
+
+
+## 👨‍💻 Team Members
+
+- Rucha Raut
+- Tejaswini Ghore
+- Punam Thakare
+- Gauri Wande
+
+## 📚 Academic Purpose
+
+This project was developed as a Final Year Engineering Project for educational and research purposes.
+
+##📄 License
+
+This project is intended for educational use only.
 
